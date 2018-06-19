@@ -54,7 +54,7 @@ public class Graph extends JFrame {
                 int y1 = (int) ((locations[i - 1].getyCoord() - roundWithN(locations[i - 1].getyCoord(), 0) + 1) * 3000) - 2800;
                 int x = (int) ((locations[i].getxCoord() - roundWithN(locations[i].getxCoord(), 0) + 1) * 3000) - 2500;
                 int y = (int) ((locations[i].getyCoord() - roundWithN(locations[i].getyCoord(), 0) + 1) * 3000) - 2800;
-                g.fillRect(x, y, 3, 3);
+                g.fillRect(x, y, 5, 5);
                 g.setColor(Color.darkGray);
                 g.drawLine(x, y, x1, y1);
             }
