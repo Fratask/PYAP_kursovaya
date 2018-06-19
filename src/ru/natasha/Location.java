@@ -3,13 +3,25 @@ package ru.natasha;
 import static ru.natasha.Main.roundWithN;
 
 public class Location {
+    private double radiusV;
+
+    //phi & tetta in radians
+    private double phi;
+    private double tetta;
+
     private double xCoord;
     private double yCoord;
     private double time;
 
-    public Location(double xCoord, double yCoord, double time){
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
+    public Location(double radiusV, double tetta, double phi, double time){
+        this.radiusV = radiusV;
+
+        this.phi = phi;
+        this.tetta = tetta;
+
+        this.xCoord =  roundWithN(radiusV * phi,10);
+        this.yCoord =  roundWithN(radiusV * (3.1416/2-tetta),10);
+
         this.time = time;
     }
 
@@ -17,24 +29,24 @@ public class Location {
         return xCoord;
     }
 
-    public void setxCoord(double xCoord) {
-        this.xCoord = xCoord;
-    }
-
     public double getyCoord() {
         return yCoord;
     }
 
-    public void setyCoord(double yCoord) {
-        this.yCoord = yCoord;
+    public double getRadiusV() {
+        return radiusV;
+    }
+
+    public double getPhi() {
+        return phi;
+    }
+
+    public double getTetta() {
+        return tetta;
     }
 
     public double getTime() {
         return time;
-    }
-
-    public void setTime(double time) {
-        this.time = time;
     }
 
     public boolean equalsCoord(Location loc){
@@ -45,6 +57,6 @@ public class Location {
     }
 
     public double distanceTo(Location loc){
-        return roundWithN(Math.sqrt(Math.pow(xCoord-loc.getxCoord(),2)+Math.pow(yCoord-loc.getyCoord(),2)), 4);
+        return roundWithN(Math.sqrt(Math.pow(loc.getxCoord()-xCoord,2)+Math.pow(loc.getyCoord()-yCoord,2)),10);
     }
 }

@@ -52,7 +52,7 @@ public class FileManager {
         StringBuilder sb = new StringBuilder();
         File file = new File(fileName);
         exists(fileName);
-        int current_line = 1;
+        int current_line = 0;
 
         try {
             BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
@@ -73,6 +73,28 @@ public class FileManager {
 
         return sb.toString();
 
+    }
+
+    public static int countLines(String fileName) throws FileNotFoundException {
+        int count = 0;
+        File file = new File(fileName);
+        exists(fileName);
+
+        try {
+            BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
+            try {
+                String s;
+                while ((s = in.readLine()) != null) {
+                    count++;
+                }
+            } finally {
+                in.close();
+            }
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return count;
     }
 
     public static void exists(String fileName) throws FileNotFoundException {
