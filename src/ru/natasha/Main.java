@@ -61,6 +61,7 @@ public class Main {
         double timeSum = 0;
         int countOfPoints = 1;
         double prevRadius = radius(locations[0].distanceTo(locations[1]), locations[1].distanceTo(locations[2]), locations[0].distanceTo(locations[2]));
+        double prevAngle = angle(prevRadius, locations[0], locations[2]);
         int deltaLoc = 0;
 
         int counter = 1;
@@ -73,9 +74,9 @@ public class Main {
             double c = locations[i-1].distanceTo(locations[i+1]);
             double alpha = 360*Math.asin(a/(2*prevRadius))/3.1416;
             double radius = radius(a, b, c);
+            double angle = angle(prevRadius, startLoc, locations[i]);
             if (((a+b<=c) || (a+c<=b) || (c+b<=a)) || prevRadius>=radius+0.1 || prevRadius<=radius-0.1) {
-                if (countOfPoints > 2){
-                    double angle = angle(prevRadius, startLoc, locations[i]);
+                if (countOfPoints > 2 && angle > 0){
                     if (distance > prevRadius*3.1416) angle = 360-angle;
                     if (distance > 2*prevRadius*3.1416) angle = 360*distance/((int) (2*prevRadius*3.1416))+angle;
                     double angleSpeed = angle/timeSum;
@@ -104,6 +105,7 @@ public class Main {
                 if (alpha <= 45 || alpha >=150) deltaLoc++;
                 idEndLoc++;
                 prevRadius = radius;
+                prevAngle = angle;
                 countOfPoints++;
                 distance =distance+b;
                 timeSum += locations[i+1].getTime()-locations[i].getTime();
