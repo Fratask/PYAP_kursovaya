@@ -73,9 +73,9 @@ public class Main {
             double c = locations[i-1].distanceTo(locations[i+1]);
             double alpha = 360*Math.asin(a/(2*prevRadius))/3.1416;
             double radius = radius(a, b, c);
-            if ((alpha < 45) || (alpha > 170) || ((a+b<=c) || (a+c<=b) || (c+b<=a))) {
+            if (((a+b<=c) || (a+c<=b) || (c+b<=a)) || prevRadius>=radius+0.1 || prevRadius<=radius-0.1) {
                 if (countOfPoints > 2){
-                    double angle = Math.acos((2*prevRadius*prevRadius-Math.pow(startLoc.distanceTo(locations[i]),2))/(2*prevRadius*prevRadius))*360/3.1416;
+                    double angle = angle(prevRadius, startLoc, locations[i]);
                     if (distance > prevRadius*3.1416) angle = 360-angle;
                     if (distance > 2*prevRadius*3.1416) angle = 360*distance/((int) (2*prevRadius*3.1416))+angle;
                     double angleSpeed = angle/timeSum;
@@ -96,7 +96,6 @@ public class Main {
                 i += idStartLoc;
                 idStartLoc = i - idStartLoc;
                 i = i - idStartLoc + 1;
-                deltaLoc = 0;
                 startLoc = locations[i];
                 prevRadius = radius;
                 countOfPoints = 2;
@@ -127,6 +126,10 @@ public class Main {
 
     public static double radius(double a, double b, double c){
         return roundWithN(a * b * c / (4 * square(a, b, c)),10);
+    }
+
+    public static double angle(double radius, Location startLoc, Location endLoc){
+        return Math.acos((2*radius*radius-Math.pow(startLoc.distanceTo(endLoc),2))/(2*radius*radius))*360/3.1416;
     }
 
     public static double roundWithN(double a, int n){

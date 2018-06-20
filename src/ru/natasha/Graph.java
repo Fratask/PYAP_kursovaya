@@ -33,7 +33,7 @@ public class Graph extends JFrame {
 
         //Paint coordinates
         g.setColor(Color.GREEN);
-        g.fillRect((int) (locations[0].getxCoord()),(int) (locations[0].getyCoord()),2,2);
+        g.fillRect((int) (locations[0].getxCoord()),(int) (locations[0].getyCoord()),5,5);
         int i = 1;
         while (i < locations.length){
             if (Main.getIdCurves().containsKey(i)){
@@ -46,6 +46,9 @@ public class Graph extends JFrame {
                     g.drawLine(x, y, x1, y1);
                     g.setColor(Color.GREEN);
                     g.fillRect(x, y, 3, 3);
+                    String numLoc = Integer.toString(j);
+                    g.setColor(Color.black);
+                    g.drawString(numLoc,x+5,y+5);
                 }
                 i = (int) Main.getIdCurves().get(i);
             } else {
@@ -57,6 +60,10 @@ public class Graph extends JFrame {
                 g.fillRect(x, y, 5, 5);
                 g.setColor(Color.darkGray);
                 g.drawLine(x, y, x1, y1);
+                String numLoc = Integer.toString(i);
+                g.setColor(Color.black);
+                g.drawString(numLoc,x+5,y+5);
+
             }
             i++;
         }
